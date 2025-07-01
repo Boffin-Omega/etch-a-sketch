@@ -1,5 +1,4 @@
 let n = 16;
-let hovering = false;
 let mouse_down = false;
 
 function draw_grid(n){
@@ -46,18 +45,21 @@ document.addEventListener("DOMContentLoaded",()=>{
     container.addEventListener("mouseover",(e)=>{
         
         console.log(e.target);
-        if(e.target.className!="container" && mouse_down == true){
+        if(e.target.className=="pixel" && mouse_down == true){
             e.target.style.backgroundColor = "black";
         } 
     })
     //almost always mouseover is triggered before mousedown
     container.addEventListener("mousedown",(e)=>{
-        if(e.target.className!="container"){
+        if(e.target.className=="pixel"){
             mouse_down = true;
         }
     })
     container.addEventListener("mouseup",(e)=>{
-        if(e.target.className!="container") mouse_down=false;
+        if(e.target.className=="pixel") mouse_down=false;
     })
-    
+
+    container.addEventListener("click",(e)=>{
+        if(e.target.className=="pixel") e.target.style.backgroundColor = "black";
+    })
 })
