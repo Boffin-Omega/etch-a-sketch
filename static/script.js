@@ -19,6 +19,10 @@ function draw_grid(n){
             container.appendChild(row);
         }
 }
+function randomize(){
+    return 256*Math.random(); 
+}
+
 document.addEventListener("DOMContentLoaded",()=>{
     let container = document.querySelector(".container");
     draw_grid(n);
@@ -42,6 +46,11 @@ document.addEventListener("DOMContentLoaded",()=>{
 
     container.addEventListener("mouseover",(e)=>{
         console.log(e.target);
-        if(e.target.className!="container") e.target.style.backgroundColor = "black";
+        if(e.target.className!="container"){
+            let R = randomize();
+            let G = randomize();
+            let B = randomize();
+            e.target.style.backgroundColor = `rgb(${R},${G},${B})`;
+        } 
     })
 })
