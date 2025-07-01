@@ -1,4 +1,6 @@
 let n = 16;
+let hovering = false;
+let mouse_down = false;
 
 function draw_grid(n){
         let container = document.querySelector(".container"); //this line is needed, cant make it global
@@ -40,8 +42,22 @@ document.addEventListener("DOMContentLoaded",()=>{
         }
     })
 
+    //to draw
     container.addEventListener("mouseover",(e)=>{
+        
         console.log(e.target);
-        if(e.target.className!="container") e.target.style.backgroundColor = "black";
+        if(e.target.className!="container" && mouse_down == true){
+            e.target.style.backgroundColor = "black";
+        } 
     })
+    //almost always mouseover is triggered before mousedown
+    container.addEventListener("mousedown",(e)=>{
+        if(e.target.className!="container"){
+            mouse_down = true;
+        }
+    })
+    container.addEventListener("mouseup",(e)=>{
+        if(e.target.className!="container") mouse_down=false;
+    })
+    
 })
