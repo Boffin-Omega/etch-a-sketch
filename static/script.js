@@ -1,4 +1,5 @@
 let n = 16;
+let mouse_down = false;
 
 function draw_grid(n){
         let container = document.querySelector(".container"); //this line is needed, cant make it global
@@ -19,9 +20,6 @@ function draw_grid(n){
             container.appendChild(row);
         }
 }
-function randomize(){
-    return 256*Math.random(); 
-}
 
 document.addEventListener("DOMContentLoaded",()=>{
     let container = document.querySelector(".container");
@@ -30,8 +28,9 @@ document.addEventListener("DOMContentLoaded",()=>{
     document.querySelector(".nav").addEventListener("click",(e)=>{
         if(e.target.id == "change"){
             //to change n
-            n = prompt("Enter new grid size"); 
-            if(n <1 || n >100)alert("Invalid grid size! Must be between 1 and 100");
+            
+            n = Number(prompt("Enter new grid size"));
+            if(n <1 || n >100 || n===NaN || !Number.isInteger(n)) alert("Invalid grid size! Must be an integer between 1 and 100");
             else{
                 container.innerHTML="";
                 draw_grid(n);
@@ -44,13 +43,25 @@ document.addEventListener("DOMContentLoaded",()=>{
         }
     })
 
+    //to draw
     container.addEventListener("mouseover",(e)=>{
+        
         console.log(e.target);
-        if(e.target.className!="container"){
-            let R = randomize();
-            let G = randomize();
-            let B = randomize();
-            e.target.style.backgroundColor = `rgb(${R},${G},${B})`;
+        if(e.target.className=="pixel" && mouse_down == true){
+            e.target.style.backgroundColor = "black";
         } 
+    })
+    //almost always mouseover is triggered before mousedown
+    container.addEventListener("mousedown",(e)=>{
+        if(e.target.className=="pixel"){
+            mouse_down = true;
+        }
+    })
+    container.addEventListener("mouseup",(e)=>{
+        if(e.target.className=="pixel") mouse_down=false;
+    })
+
+    container.addEventListener("click",(e)=>{
+        if(e.target.className=="pixel") e.target.style.backgroundColor = "black";
     })
 })
