@@ -27,8 +27,9 @@ document.addEventListener("DOMContentLoaded",()=>{
     document.querySelector(".nav").addEventListener("click",(e)=>{
         if(e.target.id == "change"){
             //to change n
-            n = prompt("Enter new grid size"); 
-            if(n <1 || n >100)alert("Invalid grid size! Must be between 1 and 100");
+            
+            n = Number(prompt("Enter new grid size"));
+            if(n <1 || n >100 || n===NaN || !Number.isInteger(n)) alert("Invalid grid size! Must be an integer between 1 and 100");
             else{
                 container.innerHTML="";
                 draw_grid(n);
